@@ -1,65 +1,83 @@
-#' Interaction Screening for Ultra-High Dimensional Data
-#'
-#' Extended variable selection approaches to jointly model main and interaction effects from high-dimensional data orignally proposed by Hao and Zhang (2014) and extended by Gosik and Wu (2016).
-#' Based on a greedy forward approach, their model can identify all possible interaction effects through two algorithms, iFORT and iFORM, which have been proved to possess sure screening property in an ultrahigh-dimensional setting.
-#'
-#' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.
-#' @param data data.frame of your data with the response and all p predictors
-#' @param strong  logical TRUE to use strong heredity or FALSE to use weak heredity (default TRUE)
-#' @param higher_order  logical TRUE indicating to include order-3 interactions in the search (default FALSE)
-#' @param use_ff  logical TRUE to use atomic data structur that are stored on disk via the ff package. (default FALSE)
-#' @return a summary of the linear model returned after the selection procedure
-#' @author Kirk Gosik
-#' @details
-#' Runs the iFORM selection procedure on the dataset and returns a linear model
-#' of the final selected model.
-#' @seealso \code{lm}\
-#' @seealso \code{model.matrix}
-#' @export
-#' @importFrom stats lm
-#' @importFrom stats summary.lm
-#' @importFrom stats model.matrix
-#' @importFrom ff as.ff
+## need to add , strong = TRUE, higher_order = FALSE, use_ff = FALSE
+## change fit to iform select
 
+iform_lm <- function (formula, data, subset, na.action, method = "qr",
+          model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE,
+          contrasts = NULL, offset, ...)
+{
+  ret.x <- x
+  ret.y <- y
+  cl <- match.call()
+  mf <- match.call(expand.dots = FALSE)
+  m <- match(c("formula", "data", "subset", "weights", "na.action",
+               "offset"), names(mf), 0L)
+  mf <- mf[c(1L, m)]
+  mf$drop.unused.levels <- TRUE
+  mf[[1L]] <- quote(stats::model.frame)
+  mf <- eval(mf, parent.frame())
+  if (method == "model.frame")
+    return(mf)
+  else if (method != "qr")
+    warning(gettextf("method = '%s' is not supported. Using 'qr'",
+                     method), domain = NA)
+  mt <- attr(mf, "terms")
+  y <- model.response(mf, "numeric")
+  w <- as.vector(model.weights(mf))
+  if (!is.null(w) && !is.numeric(w))
+    stop("'weights' must be a numeric vector")
+  offset <- as.vector(model.offset(mf))
+  if (!is.null(offset)) {
+    if (length(offset) != NROW(y))
+      stop(gettextf("number of offsets is %d, should equal %d (number of observations)",
+                    length(offset), NROW(y)), domain = NA)
+  }
+  if (is.empty.model(mt)) {
+    x <- NULL
+    z <- list(coefficients = if( is.matrix(y) ) {
+      matrix(, 0, 3)
+      }else {
+        numeric()
+        },
+      residuals = y,
+      fitted.values = 0 * y,
+      rank = 0L,
+      df.residual = length(y))
 
-iForm <- function(formula, data, strong = TRUE, higher_order = FALSE, use_ff = FALSE) {
-
-  dat <- model.frame(formula, data)
-  y <- dat[ , 1]
-  x <- dat[ , -1]
-  p <- ncol(x)
-  n <- nrow(x)
-  solution <- NULL
-  model <- NULL
-  step <- 1
-  bic <- NULL
-
-  if( use_ff ) {
-
-    candidate <- as.ff(as.matrix(x), colnames = colnames(x), overwrite = TRUE)
-    fit <- iformselect_ff(x, y, p, n, candidate, solution, model, bic, step, strong, higher_order)
-
-
-  }else{
-
-    candidate <- as.data.frame(x)
-    fit <- iformselect(x, y, p, n, candidate, solution, model, bic, step, strong, higher_order)
-
+    if (!is.null(offset)) {
+      z$fitted.values <- offset
+      z$residuals <- y - offset
     }
-
-  y <- fit$y
-  solution <- fit$solution
-  model <- fit$model
-  bic <- fit$bic
-
-  model <- data.frame(solution[ , 1 : which.min(bic), drop = FALSE])
-  lm(y ~ . + 0 , data = model)
-
+  }
+  else {
+    x <- model.matrix(mt, mf, contrasts)
+    z <- if (is.null(w))
+      lm.fit(x, y, offset = offset, singular.ok = singular.ok,
+             ...)
+    else lm.wfit(x, y, w, offset = offset, singular.ok = singular.ok,
+                 ...)
+  }
+  class(z) <- c(if (is.matrix(y)) "mlm", "lm")
+  z$na.action <- attr(mf, "na.action")
+  z$offset <- offset
+  z$contrasts <- attr(x, "contrasts")
+  z$xlevels <- .getXlevels(mt, mf)
+  z$call <- cl
+  z$terms <- mt
+  if (model)
+    z$model <- mf
+  if (ret.x)
+    z$x <- x
+  if (ret.y)
+    z$y <- y
+  if (!qr)
+    z$qr <- NULL
+  z
 }
 
 
 
 
+## iformselect ######################################
 
 iformselect <- function( x, y, p, n, candidate, solution, model, bic, step, strong, higher_order ) {
 
@@ -87,9 +105,9 @@ iformselect <- function( x, y, p, n, candidate, solution, model, bic, step, stro
         if(sum(!{colnames(solution) %in% colnames(x)}) > 2) {
 
           if(strong){
-          tmp <- Filter(function(x) {length(x) == 2}, strsplit(colnames(solution), "[.]|[:]"))
-          tmp <- combn(length(tmp), 3, function(x) Reduce(intersect, combn(x, 2, function(y) Reduce(union, tmp[y]), simplify=F)), simplify=F)
-          tmp <- Map(function(x) {paste0(x, collapse=":")}, Filter(function(x){length(x)==3}, tmp))
+            tmp <- Filter(function(x) {length(x) == 2}, strsplit(colnames(solution), "[.]|[:]"))
+            tmp <- combn(length(tmp), 3, function(x) Reduce(intersect, combn(x, 2, function(y) Reduce(union, tmp[y]), simplify=F)), simplify=F)
+            tmp <- Map(function(x) {paste0(x, collapse=":")}, Filter(function(x){length(x)==3}, tmp))
             if(length(tmp) > 0) {interaction_formula <- paste(interaction_formula, paste0(unlist(tmp), collapse = "+"), sep = "+")}
 
           }else{
@@ -120,7 +138,7 @@ iformselect <- function( x, y, p, n, candidate, solution, model, bic, step, stro
 
 
 
-
+## iformselect_ff ######################################
 
 iformselect_ff <- function(x, y, p, n, candidate, solution, model, bic, step, strong, higher_order){
 
@@ -164,7 +182,7 @@ iformselect_ff <- function(x, y, p, n, candidate, solution, model, bic, step, st
 
               interaction_formula <- paste(interaction_formula, paste0(unlist(tmp), collapse = "+"), sep = "+")
 
-              }
+            }
 
           }else{
 
@@ -174,7 +192,7 @@ iformselect_ff <- function(x, y, p, n, candidate, solution, model, bic, step, st
 
               interaction_formula <- paste(interaction_formula, paste("(",paste(unlist(tmp), collapse="+"), ")*(", paste(colnames(x), collapse = "+"), ")"), sep = "+")
 
-              }
+            }
 
           }
 
