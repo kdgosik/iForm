@@ -1,0 +1,68 @@
+\nonstopmode{}
+\documentclass[letterpaper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8,latin1]{inputenc}
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `iForm'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{Forward Selection Under Marginality Principle}
+\item[Version]\AsIs{1.0}
+\item[Date]\AsIs{2016-03-29}
+\item[Author]\AsIs{Kirk Gosik}
+\item[Maintainer]\AsIs{Kirk Gosik }\email{kgosik@broadinstitute.org}\AsIs{}
+\item[Description]\AsIs{Extended variable selection approaches to jointly model main and
+interaction effects from high-dimensional data.}
+\item[License]\AsIs{GPL-3}
+\item[LazyData]\AsIs{TRUE}
+\item[RoxygenNote]\AsIs{5.0.1}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{iForm}{Interaction Screening for Ultra-High Dimensional Data}{iForm}
+%
+\begin{Description}\relax
+Extended variable selection approaches to jointly model main and interaction effects from high-dimensional data orignally proposed by Hao and Zhang (2014) and extended by Gosik and Wu (2016).
+Based on a greedy forward approach, their model can identify all possible interaction effects through two algorithms, iFORT and iFORM, which have been proved to possess sure screening property in an ultrahigh-dimensional setting.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+iForm(data, response)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] data.frame of your data with the response and all p predictors
+
+\item[\code{response}] character name of the response column in the dataset
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Runs the iFORM selection procedure on the dataset and returns a linear model
+of the final selected model.
+\end{Details}
+%
+\begin{Value}
+a summary of the linear model returned after the selection procedure
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
+%
+\begin{SeeAlso}\relax
+\code{model.matrix}
+\end{SeeAlso}
+\printindex{}
+\end{document}
