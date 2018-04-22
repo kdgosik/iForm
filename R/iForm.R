@@ -12,16 +12,11 @@
 #' @details
 #' Runs the iForm selection procedure on the dataset and returns a linear model
 #' of the final selected model.
-#' @seealso \code{lm}\
-#' @seealso \code{model.matrix}
-#' @export
 #' @importFrom stats lm
 #' @importFrom stats summary.lm
 #' @importFrom stats model.matrix
 #' @importFrom stats model.frame
-
-
-
+#' @export
 iForm <- function(formula, data, strong = TRUE, higher_order = FALSE) {
 
   dat <- model.frame(formula, data)
@@ -71,16 +66,12 @@ iForm <- function(formula, data, strong = TRUE, higher_order = FALSE) {
 #' @details
 #' Runs the iForm selection procedure on the dataset and returns a linear model
 #' of the final selected model.
-#' @seealso \code{lm}\
-#' @seealso \code{model.matrix}
-#' @export
 #' @importFrom stats lm
 #' @importFrom stats summary.lm
 #' @importFrom stats model.matrix
 #' @importFrom stats formula
 #' @importFrom utils combn
-
-
+#' @export
 iformselect <- function( x, y, p, n, candidate, solution, model, bic, step, strong, higher_order ) {
 
   repeat{

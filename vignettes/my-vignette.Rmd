@@ -1,0 +1,90 @@
+---
+title: "iForm Use"
+author: "Kirk Gosik"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Overview
+
+The following are two small examples of using the iForm selection procedure. The procedure can handle ultra-high dimensional datasets but for demonstrationg purposes built in R datasets were used. Each of the iForm functions takes in two arguments. The first is the dataset being used and the second is the name of the variable from that data set used as the response.
+
+
+## mtcars
+
+The the first dataset used is an R dataset called mtcars. For more information about this dataset you can see the R help menu. Each observation is a car and there are several variables measured on each car. I am using all the variables in the dataset to predict the horsepower(hp) of the car in the following examples. The first fit is uing the iForm procedure with a strong heredity principle. This assumes that both main effects need to be currently selected before considering and interaction effect. As you can see from the output that Number of cylinders (cyl) and Number of carburetors (carb) are in the model before the interaction effect of cyl.carb (Number of cylinders by Number of carburetors) was selected. You would interpret the coefficientst in the same fashion as any other linear model. For example, the coefficient for cyl is 7.83. Therefore for every 1 additional cylinder the horse power goes up by 7.833.
+
+
+### iForm strong marginality
+```{r}
+data("mtcars")
+names(mtcars)  # Variable names
+dim(mtcars)  # dimensions of the dataset
+sum(is.na(mtcars$hp)) # checking number of NA values
+help("mtcars") # more info on mtcars
+
+  # Running iForm on R dataset mtcars using hourse power as response (hp)
+iForm.fit1 <- iForm(hp ~ ., mtcars)
+iForm.fit1
+```
+
+
+### iForm weak marginality
+
+Here is the same dataset but with the iForm seleciton under weak heredity. This assumes that only one of the main effects needs to be previously selected for an interaction to be considered. The same two main effects were selected as above first, cyl then carb. After that however there is a differen interaction selected of carb.disp (Number of carburetors by Displacement). This less restrictive assumption improved the model accuracy by incresaing the adjusted R-square from 0.9855 under the strong assumption to 09864 under the weak assumption. The choice comes down to the practical search space. A question you may want to answer is, do you feel that both main effects need to be included before an interaction could be considered. If yes, use the strong case, if not use the weak case.
+
+
+```{r}
+  # fitting the iForm procedure with the weak heredity assumption
+iForm.weak.fit1 <- iForm(hp ~ ., mtcars, strong = FALSE)
+iForm.weak.fit1
+```
+
+
+## Hitters
+
+Here is another example that has NA values in the dataset. This would need to be removed before running the procedure. The interpretation would be similar.
+
+```{r}
+  # Using a slightly larger dataset from the package ISLR
+
+  # If package isn't installed this code will install it
+
+list.of.packages <- c("ISLR")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+```
+
+
+
+```{r}
+library(ISLR)
+data("Hitters")
+names(Hitters)  # Variable names
+dim(Hitters)  # dimensions of the dataset
+sum(is.na(Hitters$Salary))  # number of NA values in the Salary variable
+Hitters <- na.omit(Hitters)  # removing all na values
+dim(Hitters)  # rechecking dimension size after removal of NA's
+sum(is.na(Hitters))   # rechecking number of NA values
+```
+
+
+
+```{r}
+help("Hitters") # more information on Hitters dataset
+
+iForm.fit2 <- iForm(Salary ~ ., Hitters)
+iForm.fit2
+```
