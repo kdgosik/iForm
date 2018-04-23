@@ -81,7 +81,7 @@ dim(Hitters)  # rechecking dimension size after removal of NA's
 sum(is.na(Hitters))   # rechecking number of NA values
 ```
 
-
+### Strong Marginality
 
 ```{r}
 help("Hitters") # more information on Hitters dataset
@@ -89,3 +89,15 @@ help("Hitters") # more information on Hitters dataset
 iForm.fit2 <- iForm(Salary ~ ., Hitters)
 iForm.fit2
 ```
+
+
+### Weak Marginality
+
+```{r}
+help("Hitters") # more information on Hitters dataset
+
+iForm.fit2_weak <- iForm(Salary ~ ., Hitters, strong = FALSE)
+iForm.fit2_weak
+```
+
+

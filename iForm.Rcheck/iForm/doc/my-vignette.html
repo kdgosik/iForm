@@ -281,6 +281,8 @@ sum(is.na(Hitters))   # rechecking number of NA values
 #&gt; [1] 0
 </code></pre>
 
+<h3>Strong Marginality</h3>
+
 <pre><code class="r">help(&quot;Hitters&quot;) # more information on Hitters dataset
 
 iForm.fit2 &lt;- iForm(Salary ~ ., Hitters)
@@ -294,6 +296,23 @@ iForm.fit2
 #&gt;  -1.003459    0.470567    0.007857    0.264463   95.159794    2.358528  
 #&gt; CRBI.CRuns      CAtBat  
 #&gt;  -0.001084   -0.243601
+</code></pre>
+
+<h3>Weak Marginality</h3>
+
+<pre><code class="r">help(&quot;Hitters&quot;) # more information on Hitters dataset
+
+iForm.fit2_weak &lt;- iForm(Salary ~ ., Hitters, strong = FALSE)
+iForm.fit2_weak
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = y ~ . + 0, data = model)
+#&gt; 
+#&gt; Coefficients:
+#&gt;         Hits          CRBI    CRBI.Years  CRBI.PutOuts    CRBI.CRuns  
+#&gt;   -3.162e+00     2.455e+00    -1.933e-01     5.157e-04     9.630e-04  
+#&gt;        Years    Hits.Walks         Walks        League  Hits.LeagueN  
+#&gt;    2.303e+01     1.162e-01    -1.218e+01     2.480e+02    -1.873e+00
 </code></pre>
 
 </body>

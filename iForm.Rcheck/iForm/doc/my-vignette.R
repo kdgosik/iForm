@@ -46,3 +46,9 @@ help("Hitters") # more information on Hitters dataset
 iForm.fit2 <- iForm(Salary ~ ., Hitters)
 iForm.fit2
 
+## ------------------------------------------------------------------------
+help("Hitters") # more information on Hitters dataset
+
+iForm.fit2_weak <- iForm(Salary ~ ., Hitters, strong = FALSE)
+iForm.fit2_weak
+
