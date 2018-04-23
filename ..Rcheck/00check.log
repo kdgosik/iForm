@@ -1,15 +1,64 @@
-* using log directory ‘/home/kirk/Documents/Projects/RProjects/iForm/..Rcheck’
-* using R version 3.4.2 (2017-09-28)
-* using platform: x86_64-pc-linux-gnu (64-bit)
+* using log directory ‘/Users/kgosik/Documents/Projects/iForm/..Rcheck’
+* using R version 3.4.3 (2017-11-30)
+* using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
 * checking for file ‘./DESCRIPTION’ ... OK
 * checking extension type ... Package
 * this is package ‘iForm’ version ‘1.0’
 * checking package namespace information ... OK
 * checking package dependencies ... OK
-* checking if this is a source package ... OK
+* checking if this is a source package ... NOTE
+Subdirectory ‘iForm.Rcheck/iForm’ seems to contain an installed version of the package.
 * checking if there is a namespace ... OK
-* checking for executable files ... OK
+* checking for executable files ... WARNING
+Found the following executable files:
+  .git/objects/0d/4eda3f4c178a4b2312129a5bb107924c6b59ce
+  .git/objects/0d/8509ee91eb18e1b55299e5ff655641f7c44bda
+  .git/objects/0f/769e35c8060c54b191848d979f10365108f8ad
+  .git/objects/13/a01d606bc28c57e2cc8702e7f3f3ea32fec3bd
+  .git/objects/14/87cfef29d49724f08b4fed43e85e02c377284c
+  .git/objects/17/ac5d531d3c4be56eb6bfc3e6e611b3748b1fc8
+  .git/objects/23/806ec07c9cc31f5162b261f3e05429533432d9
+  .git/objects/28/60e1fe20742f2f01cac24050f0b5ec8c23ecdc
+  .git/objects/29/2ab7c0cee1e640aa5900be5a674d6b5cad5334
+  .git/objects/33/2559012adbadba6a042d29b9bdcf072641615b
+  .git/objects/34/ea21ce81a348928640f990e91fc09bc6360fa3
+  .git/objects/41/fec6a48d8aee8896c06d75f3d23566dfe69a31
+  .git/objects/45/f6d9262bf04ae235f86624f1303dafb6384e89
+  .git/objects/50/08ddfcf53c02e82d7eee2e57c38e5672ef89f6
+  .git/objects/50/ba4affa010ce8ef5bee9e833e8030401c2132e
+  .git/objects/54/b09eb81b50682630afa68b128a69dc08b2b941
+  .git/objects/58/53a7809891d98fb24415b57b292a611074a4c1
+  .git/objects/60/95734423b7e13fc70edfda05134bf4abcb5772
+  .git/objects/65/0f3407688bf52f9280711330b6a00692399af7
+  .git/objects/66/f483bbd4f7449ba1b6616a73e6af1527b543f4
+  .git/objects/6f/e7b1286e23e9dc010617012b27e41e24f94084
+  .git/objects/71/06de4a8d8fa85cde6832a86ea251412c1cadec
+  .git/objects/86/35ea34c276661376d53ea3ae514d140fd6ebb8
+  .git/objects/92/1311a4c466ee8cd061de17e7acfa8e3a01c41e
+  .git/objects/94/efa6f561d6fc98f0b39d3dd6371e9427ad2f70
+  .git/objects/98/4d10e05131d4298ce54c8385250e6c01e145df
+  .git/objects/99/4910420a920aa082dddc2b9c2d0a792f8b2835
+  .git/objects/9d/1e377f0f24095c1d19b67aaaa28fe2c5a0ea03
+  .git/objects/a2/0434a541bbec3b4d78964b9d42e811932c04d5
+  .git/objects/a4/fad8ae1def9134ff3add645113d6f9a3cbc719
+  .git/objects/b8/d2d0709b1d1d8dab36260c316193bc012d6ec4
+  .git/objects/c1/f7b1b33f21fa2ab4dde87008b1422f3091d2c3
+  .git/objects/c3/5b072fae473f58c68da2f478ba9791ca0c86fa
+  .git/objects/c8/1d23ac67f39027b1e6e99a8832c172f6a671a3
+  .git/objects/ca/a66ac79efa1108090410e781148381681a8ca1
+  .git/objects/d4/84d11d98e50d97a65cf0e755b06b760bc6c712
+  .git/objects/d4/c1931b0a6fcbc5e7d2e01d5cfb9f581973f9d7
+  .git/objects/de/1b174c5cae06abab9596b319ca652e70e4e234
+  .git/objects/e3/d382f227d0f9f06bf81f3932ed90e42c57a57b
+  .git/objects/e8/8e7355647e8b998fc5ba5f47b91ed078a4b8ee
+  .git/objects/ef/7fc8e8d1dbd402ea05117fa974853fc3f1a152
+  .git/objects/f4/feecc8745386553a956f81c2f2081d1c5d60ea
+  .git/objects/f9/feadae9a2c4827d7d3642f3fb7544fd1b75c37
+  .git/objects/fc/05308f68a9ac77e9c3c560ea1e4be6243d0c08
+  .git/objects/fd/5c676401a26d288d1e9a2f46cf8ff5ec4e3a92
+Source packages should not contain undeclared executable files.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
 * checking for hidden files and directories ... NOTE
 Found the following hidden files and directories:
   .DS_Store
@@ -33,12 +82,16 @@ See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
 * checking package directory ... OK
 * checking DESCRIPTION meta-information ... NOTE
 Checking should be performed on sources prepared by ‘R CMD build’.
-* checking top-level files ... OK
+* checking top-level files ... NOTE
+File
+  LICENSE
+is not mentioned in the DESCRIPTION file.
 * checking for left-over files ... OK
 * checking index information ... OK
 * checking package subdirectories ... WARNING
-Found the following directory with the name of a check directory:
+Found the following directories with names of check directories:
   ./..Rcheck
+  ./iForm.Rcheck
 Most likely, these were included erroneously.
 * checking R files for non-ASCII characters ... OK
 * checking R files for syntax errors ... OK
@@ -47,53 +100,42 @@ Most likely, these were included erroneously.
 * checking whether the package can be unloaded cleanly ... OK
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
-* checking loading without being on the library search path ... OK
 * checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
 * checking R code for possible problems ... NOTE
-iForm: no visible global function definition for ‘model.frame’
-iForm: no visible global function definition for ‘as.ff’
-iformselect: no visible global function definition for ‘combn’
-iformselect : <anonymous>: no visible global function definition for
-  ‘combn’
 iformselect: no visible global function definition for ‘as.formula’
-iformselect_ff: no visible global function definition for ‘combn’
-iformselect_ff : <anonymous>: no visible global function definition for
-  ‘combn’
-iformselect_ff: no visible global function definition for ‘as.formula’
 Undefined global functions or variables:
-  as.ff as.formula combn model.frame
+  as.formula
 Consider adding
-  importFrom("stats", "as.formula", "model.frame")
-  importFrom("utils", "combn")
+  importFrom("stats", "as.formula")
 to your NAMESPACE file.
-* checking Rd files ... OK
+* checking Rd files ... WARNING
+iForm.Rd: non-ASCII input and no declared encoding
+problem found in ‘iForm.Rd’
 * checking Rd metadata ... OK
 * checking Rd cross-references ... OK
 * checking for missing documentation entries ... OK
-* checking for code/documentation mismatches ... WARNING
-Codoc mismatches from documentation object 'iForm':
-iForm
-  Code: function(formula, data, strong = TRUE, higher_order = FALSE,
-                 use_ff = FALSE)
-  Docs: function(data, response)
-  Argument names in code not in docs:
-    formula strong higher_order use_ff
-  Argument names in docs not in code:
-    response
-  Mismatches in argument names:
-    Position: 1 Code: formula Docs: data
-    Position: 2 Code: data Docs: response
-
+* checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
+* checking files in ‘vignettes’ ... WARNING
+Files in the 'vignettes' directory but no files in 'inst/doc':
+  ‘my-vignette.Rmd’
 * checking examples ... NONE
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... WARNING
+Package vignette without corresponding PDF/HTML:
+   ‘my-vignette.Rmd’
+
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... WARNING
 LaTeX errors when creating PDF version.
 This typically indicates Rd problems.
-* checking PDF version of manual without hyperrefs or index ... OK
+* checking PDF version of manual without hyperrefs or index ... ERROR
+Re-running with no redirection of stdout/stderr.
 * DONE
-Status: 4 WARNINGs, 3 NOTEs
+Status: 1 ERROR, 7 WARNINGs, 5 NOTEs

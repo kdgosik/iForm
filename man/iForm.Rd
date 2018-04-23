@@ -3,6 +3,9 @@
 \name{iForm}
 \alias{iForm}
 \title{Interaction Screening for Ultra-High Dimensional Data}
+\usage{
+iForm(formula, data, strong = TRUE, higher_order = FALSE)
+}
 \arguments{
 \item{formula}{an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.}
 

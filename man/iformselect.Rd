@@ -3,6 +3,10 @@
 \name{iformselect}
 \alias{iformselect}
 \title{Inner workings for different selections under different higher-orders and strength of marginality.}
+\usage{
+iformselect(x, y, p, n, candidate, solution, model, bic, step, strong,
+  higher_order)
+}
 \arguments{
 \item{x}{design matrix of predictors}
 

@@ -1,5 +1,5 @@
 \nonstopmode{}
-\documentclass[letterpaper]{book}
+\documentclass[a4paper]{book}
 \usepackage[times,inconsolata,hyper]{Rd}
 \usepackage{makeidx}
 \usepackage[utf8,latin1]{inputenc}
@@ -17,13 +17,15 @@
 \item[Title]\AsIs{Forward Selection Under Marginality Principle}
 \item[Version]\AsIs{1.0}
 \item[Date]\AsIs{2016-03-29}
-\item[Author]\AsIs{Kirk Gosik}
+\item[Author]\AsIs{Kirk Gosik }\email{kgosik@broadinstitute.org}\AsIs{}
 \item[Maintainer]\AsIs{Kirk Gosik }\email{kgosik@broadinstitute.org}\AsIs{}
 \item[Description]\AsIs{Extended variable selection approaches to jointly model main and
 interaction effects from high-dimensional data.}
 \item[License]\AsIs{GPL-3}
 \item[LazyData]\AsIs{TRUE}
-\item[RoxygenNote]\AsIs{5.0.1}
+\item[RoxygenNote]\AsIs{6.0.1.9000}
+\item[Suggests]\AsIs{knitr, rmarkdown}
+\item[VignetteBuilder]\AsIs{knitr}
 \end{description}
 \Rdcontents{\R{} topics documented:}
 \inputencoding{utf8}
@@ -36,20 +38,24 @@ Based on a greedy forward approach, their model can identify all possible intera
 %
 \begin{Usage}
 \begin{verbatim}
-iForm(data, response)
+iForm(formula, data, strong = TRUE, higher_order = FALSE)
 \end{verbatim}
 \end{Usage}
 %
 \begin{Arguments}
 \begin{ldescription}
+\item[\code{formula}] an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.
+
 \item[\code{data}] data.frame of your data with the response and all p predictors
 
-\item[\code{response}] character name of the response column in the dataset
+\item[\code{strong}] logical TRUE to use strong heredity or FALSE to use weak heredity (default TRUE)
+
+\item[\code{higher\_order}] logical TRUE indicating to include order-3 interactions in the search (default FALSE)
 \end{ldescription}
 \end{Arguments}
 %
 \begin{Details}\relax
-Runs the iFORM selection procedure on the dataset and returns a linear model
+Runs the iForm selection procedure on the dataset and returns a linear model
 of the final selected model.
 \end{Details}
 %
@@ -60,9 +66,58 @@ a summary of the linear model returned after the selection procedure
 \begin{Author}\relax
 Kirk Gosik
 \end{Author}
+\inputencoding{utf8}
+\HeaderA{iformselect}{Inner workings for different selections under different higher-orders and strength of marginality.}{iformselect}
 %
-\begin{SeeAlso}\relax
-\code{model.matrix}
-\end{SeeAlso}
+\begin{Description}\relax
+Extended variable selection approaches to jointly model main and interaction effects from high-dimensional data orignally proposed by Hao and Zhang (2014) and extended by Gosik and Wu (2016).
+Based on a greedy forward approach, their model can identify all possible interaction effects through two algorithms, iFORT and iFORM, which have been proved to possess sure screening property in an ultrahigh-dimensional setting.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+iformselect(x, y, p, n, candidate, solution, model, bic, step, strong,
+  higher_order)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] design matrix of predictors
+
+\item[\code{y}] response variable
+
+\item[\code{p}] the size of the predictor set
+
+\item[\code{n}] the size of the number of observations
+
+\item[\code{candidate}] the current candidate set of predictors to select from
+
+\item[\code{solution}] the current set of predictors already selected
+
+\item[\code{model}] the set of predictors to use in the final model
+
+\item[\code{bic}] the cutoff value for determining the model set
+
+\item[\code{step}] the step in the iteration currently on
+
+\item[\code{strong}] indicator of the strength of marginality to be used
+
+\item[\code{higher\_order}] logical TRUE indicating to include order-3 interactions in the search (default FALSE)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Runs the iForm selection procedure on the dataset and returns a linear model
+of the final selected model.
+\end{Details}
+%
+\begin{Value}
+a summary of the linear model returned after the selection procedure
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
 \printindex{}
 \end{document}
