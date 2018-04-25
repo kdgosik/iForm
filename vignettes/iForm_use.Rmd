@@ -48,7 +48,7 @@ Here is the same dataset but with the iForm seleciton under weak heredity. This 
 
 ```{r}
   # fitting the iForm procedure with the weak heredity assumption
-iForm.weak.fit1 <- iForm(hp ~ ., mtcars, strong = FALSE)
+iForm.weak.fit1 <- iForm(hp ~ ., mtcars, heredity = "weak")
 iForm.weak.fit1
 ```
 
@@ -83,8 +83,6 @@ iForm.fit2
 ```{r}
 help("Hitters") # more information on Hitters dataset
 
-iForm.fit2_weak <- iForm(Salary ~ ., Hitters, strong = FALSE)
+iForm.fit2_weak <- iForm(Salary ~ ., Hitters, heredity = "weak")
 iForm.fit2_weak
 ```
-
-
