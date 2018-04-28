@@ -4,7 +4,7 @@
 #' Based on a greedy forward approach, their model can identify all possible interaction effects through two algorithms, iFORT and iFORM, which have been proved to possess sure screening property in an ultrahigh-dimensional setting.
 #'
 #' @name iForm
-#' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.
+#' @param formula an object of class formula, or one that can be coerced to that class,: a symbolic description of the model to be fitted. The details of model specification are given under 'Details'.
 #' @param data data.frame of your data with the response and all p predictors
 #' @param heredity  a string specifying the heredity to be considered. NULL, weak, strong
 #' @param higher_order  logical TRUE indicating to include order-3 interactions in the search (default FALSE)
@@ -18,6 +18,7 @@
 #' @seealso \code{model.frame}
 #' @export
 #' @importFrom stats lm
+#' @importFrom stats as.formula
 #' @importFrom stats model.frame
 
 
@@ -131,6 +132,7 @@ iformselect <- function( x, y, p, n, C, S, bic, heredity, higher_order ) {
 #' Mapping function to calculcate the residual sum of squares for each of the candidate predictors
 #' @export
 #' @importFrom stats model.matrix
+#' @importFrom stats as.formula
 
 
 rss_map_func <- function( C, S, y, data ) {

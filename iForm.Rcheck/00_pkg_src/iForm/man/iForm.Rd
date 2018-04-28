@@ -3,12 +3,15 @@
 \name{iForm}
 \alias{iForm}
 \title{Interaction Screening for Ultra-High Dimensional Data}
+\usage{
+iForm(formula, data, heredity = "strong", higher_order = FALSE)
+}
 \arguments{
 \item{formula}{an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.}
 
 \item{data}{data.frame of your data with the response and all p predictors}
 
-\item{strong}{logical TRUE to use strong heredity or FALSE to use weak heredity (default TRUE)}
+\item{heredity}{a string specifying the heredity to be considered. NULL, weak, strong}
 
 \item{higher_order}{logical TRUE indicating to include order-3 interactions in the search (default FALSE)}
 }
@@ -20,8 +23,16 @@ Extended variable selection approaches to jointly model main and interaction eff
 Based on a greedy forward approach, their model can identify all possible interaction effects through two algorithms, iFORT and iFORM, which have been proved to possess sure screening property in an ultrahigh-dimensional setting.
 }
 \details{
-Runs the iForm selection procedure on the dataset and returns a linear model
-of the final selected model.
+Runs the iFORM selection procedure on the dataset and returns a linear model
+of the final selected model.  The model is of an R object of class "lm"
+}
+\examples{
+iForm(formula = hp ~ ., data = mtcars, heredity = "strong", higher_order = FALSE)
+}
+\seealso{
+\code{lm}
+
+\code{model.frame}
 }
 \author{
 Kirk Gosik

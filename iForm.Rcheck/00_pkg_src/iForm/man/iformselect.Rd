@@ -2,40 +2,39 @@
 % Please edit documentation in R/iForm.R
 \name{iformselect}
 \alias{iformselect}
-\title{Inner workings for different selections under different higher-orders and strength of marginality.}
+\title{Selection for iForm procedure}
+\usage{
+iformselect(x, y, p, n, C, S, bic, heredity, higher_order)
+}
 \arguments{
-\item{x}{design matrix of predictors}
+\item{x}{data.frame of your data with all p predictors}
 
-\item{y}{response variable}
+\item{y}{vector of observed responses}
 
-\item{p}{the size of the predictor set}
+\item{p}{number of predictors in the dataset}
 
-\item{n}{the size of the number of observations}
+\item{n}{number of observations in the dataset}
 
-\item{candidate}{the current candidate set of predictors to select from}
+\item{C}{vector of candidate predictors to consider in this step of the procedure}
 
-\item{solution}{the current set of predictors already selected}
+\item{S}{vector of solution predictor selected from previous steps of the procedure}
 
-\item{model}{the set of predictors to use in the final model}
+\item{bic}{vector of bic values calculated for each step of the procedure}
 
-\item{bic}{the cutoff value for determining the model set}
-
-\item{step}{the step in the iteration currently on}
-
-\item{strong}{indicator of the strength of marginality to be used}
+\item{heredity}{a string specifying the heredity to be considered. NULL, weak, strong}
 
 \item{higher_order}{logical TRUE indicating to include order-3 interactions in the search (default FALSE)}
 }
 \value{
-a summary of the linear model returned after the selection procedure
+the response vector, the solution set of predictors and the calculated bic values
 }
 \description{
-Extended variable selection approaches to jointly model main and interaction effects from high-dimensional data orignally proposed by Hao and Zhang (2014) and extended by Gosik and Wu (2016).
-Based on a greedy forward approach, their model can identify all possible interaction effects through two algorithms, iFORT and iFORM, which have been proved to possess sure screening property in an ultrahigh-dimensional setting.
+This is a helper function to run the selection procedure under differen heredity principles
+and different levels of interactions included in the selection.
 }
 \details{
-Runs the iForm selection procedure on the dataset and returns a linear model
-of the final selected model.
+Runs the iFORM selection procedure for specifed heredity and level of interactions.
+It returns the solution to be fit from \code{iForm}
 }
 \author{
 Kirk Gosik

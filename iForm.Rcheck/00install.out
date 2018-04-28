@@ -1,18 +1,10 @@
-Error: package or namespace load failed for ‘stats’ in dyn.load(file, DLLpath = DLLpath, ...):
- unable to load shared object '/anaconda/lib/R/library/stats/libs/stats.so':
-  dlopen(/anaconda/lib/R/library/stats/libs/stats.so, 6): Library not loaded: @rpath/libgfortran.3.dylib
-  Referenced from: /anaconda/lib/R/library/stats/libs/stats.so
-  Reason: image not found
-During startup - Warning message:
-package ‘stats’ in options("defaultPackages") was not found 
 * installing *source* package ‘iForm’ ...
 ** R
 ** inst
 ** preparing package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/anaconda/lib/R/library/stats/libs/stats.so':
-  dlopen(/anaconda/lib/R/library/stats/libs/stats.so, 6): Library not loaded: @rpath/libgfortran.3.dylib
-  Referenced from: /anaconda/lib/R/library/stats/libs/stats.so
-  Reason: image not found
-ERROR: lazy loading failed for package ‘iForm’
-* removing ‘/Users/kgosik/Documents/Projects/iForm/iForm.Rcheck/iForm’
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (iForm)

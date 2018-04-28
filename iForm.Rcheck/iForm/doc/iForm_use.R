@@ -18,17 +18,8 @@ iForm.fit1
 
 ## ------------------------------------------------------------------------
   # fitting the iForm procedure with the weak heredity assumption
-iForm.weak.fit1 <- iForm(hp ~ ., mtcars, strong = FALSE)
+iForm.weak.fit1 <- iForm(hp ~ ., mtcars, heredity = "weak")
 iForm.weak.fit1
-
-## ------------------------------------------------------------------------
-  # Using a slightly larger dataset from the package ISLR
-
-  # If package isn't installed this code will install it
-
-list.of.packages <- c("ISLR")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
 
 ## ------------------------------------------------------------------------
 library(ISLR)
@@ -49,6 +40,6 @@ iForm.fit2
 ## ------------------------------------------------------------------------
 help("Hitters") # more information on Hitters dataset
 
-iForm.fit2_weak <- iForm(Salary ~ ., Hitters, strong = FALSE)
+iForm.fit2_weak <- iForm(Salary ~ ., Hitters, heredity = "weak")
 iForm.fit2_weak
 

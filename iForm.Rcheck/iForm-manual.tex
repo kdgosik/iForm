@@ -1,0 +1,311 @@
+\nonstopmode{}
+\documentclass[letterpaper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8,latin1]{inputenc}
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `iForm'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{Forward Selection Under Marginality Principle}
+\item[Version]\AsIs{1.0}
+\item[Date]\AsIs{2016-03-29}
+\item[Author]\AsIs{Kirk Gosik }\email{kgosik@broadinstitute.org}\AsIs{}
+\item[Maintainer]\AsIs{Kirk Gosik }\email{kgosik@broadinstitute.org}\AsIs{}
+\item[Description]\AsIs{Extended variable selection approaches to jointly model main and
+interaction effects from high-dimensional data.}
+\item[License]\AsIs{GPL-3}
+\item[LazyData]\AsIs{TRUE}
+\item[RoxygenNote]\AsIs{6.0.1.9000}
+\item[Suggests]\AsIs{knitr,rmarkdown}
+\item[VignetteBuilder]\AsIs{knitr}
+\item[NeedsCompilation]\AsIs{no}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{iForm}{Interaction Screening for Ultra-High Dimensional Data}{iForm}
+%
+\begin{Description}\relax
+Extended variable selection approaches to jointly model main and interaction effects from high-dimensional data orignally proposed by Hao and Zhang (2014) and extended by Gosik and Wu (2016).
+Based on a greedy forward approach, their model can identify all possible interaction effects through two algorithms, iFORT and iFORM, which have been proved to possess sure screening property in an ultrahigh-dimensional setting.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+iForm(formula, data, heredity = "strong", higher_order = FALSE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{formula}] an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.
+
+\item[\code{data}] data.frame of your data with the response and all p predictors
+
+\item[\code{heredity}] a string specifying the heredity to be considered. NULL, weak, strong
+
+\item[\code{higher\_order}] logical TRUE indicating to include order-3 interactions in the search (default FALSE)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Runs the iFORM selection procedure on the dataset and returns a linear model
+of the final selected model.  The model is of an R object of class "lm"
+\end{Details}
+%
+\begin{Value}
+a summary of the linear model returned after the selection procedure
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
+%
+\begin{SeeAlso}\relax
+\code{lm}
+
+\code{model.frame}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+iForm(formula = hp ~ ., data = mtcars, heredity = "strong", higher_order = FALSE)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{iformselect}{Selection for iForm procedure}{iformselect}
+%
+\begin{Description}\relax
+This is a helper function to run the selection procedure under differen heredity principles
+and different levels of interactions included in the selection.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+iformselect(x, y, p, n, C, S, bic, heredity, higher_order)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] data.frame of your data with all p predictors
+
+\item[\code{y}] vector of observed responses
+
+\item[\code{p}] number of predictors in the dataset
+
+\item[\code{n}] number of observations in the dataset
+
+\item[\code{C}] vector of candidate predictors to consider in this step of the procedure
+
+\item[\code{S}] vector of solution predictor selected from previous steps of the procedure
+
+\item[\code{bic}] vector of bic values calculated for each step of the procedure
+
+\item[\code{heredity}] a string specifying the heredity to be considered. NULL, weak, strong
+
+\item[\code{higher\_order}] logical TRUE indicating to include order-3 interactions in the search (default FALSE)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Runs the iFORM selection procedure for specifed heredity and level of interactions.
+It returns the solution to be fit from \code{iForm}
+\end{Details}
+%
+\begin{Value}
+the response vector, the solution set of predictors and the calculated bic values
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{rss\_map\_func}{Finding minimum RSS}{rss.Rul.map.Rul.func}
+%
+\begin{Description}\relax
+Helper function to take in the candidate set and solution set along with the observations
+and previous data to calculate the residual sum of sqaures for each of the candidate
+predictors given what has already been selected.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+rss_map_func(C, S, y, data)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{C}] vector of candidate predictors to consider in this step of the procedure
+
+\item[\code{S}] vector of solution predictor selected from previous steps of the procedure
+
+\item[\code{y}] vector of observed responses
+
+\item[\code{data}] data.frame of your data with the response and all p predictors
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Mapping function to calculcate the residual sum of squares for each of the candidate predictors
+\end{Details}
+%
+\begin{Value}
+A vector of the RSS values for each candidate predictor
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{strong\_order2}{Creating interactions based off of strong heredity principle}{strong.Rul.order2}
+%
+\begin{Description}\relax
+Helper function to give all possible order-2 interactions following the strong
+heredity principle.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+strong_order2(S, data)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{S}] vector of solution predictor selected from previous steps of the procedure
+
+\item[\code{data}] data.frame of your data with the response and all p predictors
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Finds all p choose 2 combinations of predicotrs in the solution set
+\end{Details}
+%
+\begin{Value}
+A vector of the RSS values for each candidate predictor
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
+%
+\begin{SeeAlso}\relax
+\code{model.matrix}
+\end{SeeAlso}
+\inputencoding{utf8}
+\HeaderA{strong\_order3}{Creating interactions based off of strong heredity principle}{strong.Rul.order3}
+%
+\begin{Description}\relax
+Helper function to give all possible order-3 interactions following the strong
+heredity principle.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+strong_order3(S, data)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{S}] vector of solution predictor selected from previous steps of the procedure
+
+\item[\code{data}] data.frame of your data with the response and all p predictors
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Finds all p choose 3 combinations between the predicotrs in the solution set.
+\end{Details}
+%
+\begin{Value}
+A vector of the RSS values for each candidate predictor
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{weak\_order2}{Creating interactions based off of weak heredity principle}{weak.Rul.order2}
+%
+\begin{Description}\relax
+Helper function to give all possible order-2 interactions following the weak
+heredity principle.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+weak_order2(S, C, data)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{S}] vector of solution predictor selected from previous steps of the procedure
+
+\item[\code{C}] vector of candidate predictors to consider in this step of the procedure
+
+\item[\code{data}] data.frame of your data with the response and all p predictors
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Finds all p choose 3 combinations between the predicotrs in the solution set and the
+predictors in the candidate set.
+\end{Details}
+%
+\begin{Value}
+A vector of the RSS values for each candidate predictor
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{weak\_order3}{Creating interactions based off of weak heredity principle}{weak.Rul.order3}
+%
+\begin{Description}\relax
+Helper function to give all possible order-3 interactions following the strong
+heredity principle.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+weak_order3(S, C, data)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{S}] vector of solution predictor selected from previous steps of the procedure
+
+\item[\code{C}] vector of candidate predictors to consider in this step of the procedure
+
+\item[\code{data}] data.frame of your data with the response and all p predictors
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Finds all p choose 3 combinations between the predicotrs in the solution set and the
+predictors in the candidate set.
+\end{Details}
+%
+\begin{Value}
+A vector of the RSS values for each candidate predictor
+\end{Value}
+%
+\begin{Author}\relax
+Kirk Gosik
+\end{Author}
+\printindex{}
+\end{document}

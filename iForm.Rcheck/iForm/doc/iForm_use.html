@@ -227,11 +227,11 @@ iForm.fit1 &lt;- iForm(hp ~ ., mtcars)
 iForm.fit1
 #&gt; 
 #&gt; Call:
-#&gt; lm(formula = y ~ . + 0, data = model)
+#&gt; lm(formula = model_formula, data = x)
 #&gt; 
 #&gt; Coefficients:
-#&gt;      cyl      carb  cyl.carb      gear  
-#&gt;    7.833   -58.232    10.317    18.211
+#&gt;      cyl      carb      gear  cyl:carb  
+#&gt;    7.833   -58.232    18.211    10.317
 </code></pre>
 
 <h3>iForm weak marginality</h3>
@@ -239,29 +239,20 @@ iForm.fit1
 <p>Here is the same dataset but with the iForm seleciton under weak heredity. This assumes that only one of the main effects needs to be previously selected for an interaction to be considered. The same two main effects were selected as above first, cyl then carb. After that however there is a differen interaction selected of carb.disp (Number of carburetors by Displacement). This less restrictive assumption improved the model accuracy by incresaing the adjusted R-square from 0.9855 under the strong assumption to 09864 under the weak assumption. The choice comes down to the practical search space. A question you may want to answer is, do you feel that both main effects need to be included before an interaction could be considered. If yes, use the strong case, if not use the weak case.</p>
 
 <pre><code class="r">  # fitting the iForm procedure with the weak heredity assumption
-iForm.weak.fit1 &lt;- iForm(hp ~ ., mtcars, strong = FALSE)
+iForm.weak.fit1 &lt;- iForm(hp ~ ., mtcars, heredity = &quot;weak&quot;)
 iForm.weak.fit1
 #&gt; 
 #&gt; Call:
-#&gt; lm(formula = y ~ . + 0, data = model)
+#&gt; lm(formula = model_formula, data = x)
 #&gt; 
 #&gt; Coefficients:
-#&gt;       cyl       carb  carb.disp     cyl.wt  
-#&gt;   27.9391    -7.4924     0.1194    -4.3171
+#&gt;      cyl  cyl:carb  
+#&gt;   14.369     3.085
 </code></pre>
 
 <h2>Hitters</h2>
 
 <p>Here is another example that has NA values in the dataset. This would need to be removed before running the procedure. The interpretation would be similar.</p>
-
-<pre><code class="r">  # Using a slightly larger dataset from the package ISLR
-
-  # If package isn&#39;t installed this code will install it
-
-list.of.packages &lt;- c(&quot;ISLR&quot;)
-new.packages &lt;- list.of.packages[!(list.of.packages %in% installed.packages()[,&quot;Package&quot;])]
-if(length(new.packages)) install.packages(new.packages)
-</code></pre>
 
 <pre><code class="r">library(ISLR)
 data(&quot;Hitters&quot;)
@@ -289,30 +280,26 @@ iForm.fit2 &lt;- iForm(Salary ~ ., Hitters)
 iForm.fit2
 #&gt; 
 #&gt; Call:
-#&gt; lm(formula = y ~ . + 0, data = model)
+#&gt; lm(formula = model_formula, data = x)
 #&gt; 
 #&gt; Coefficients:
-#&gt;       Hits        CRBI   Hits.CRBI     PutOuts      League       CRuns  
-#&gt;  -1.003459    0.470567    0.007857    0.264463   95.159794    2.358528  
-#&gt; CRBI.CRuns      CAtBat  
-#&gt;  -0.001084   -0.243601
+#&gt;       Hits        CRBI   DivisionE   DivisionW   Hits:CRBI  
+#&gt;   0.553869   -0.195446  276.313972  164.892151    0.008276
 </code></pre>
 
 <h3>Weak Marginality</h3>
 
 <pre><code class="r">help(&quot;Hitters&quot;) # more information on Hitters dataset
 
-iForm.fit2_weak &lt;- iForm(Salary ~ ., Hitters, strong = FALSE)
+iForm.fit2_weak &lt;- iForm(Salary ~ ., Hitters, heredity = &quot;weak&quot;)
 iForm.fit2_weak
 #&gt; 
 #&gt; Call:
-#&gt; lm(formula = y ~ . + 0, data = model)
+#&gt; lm(formula = model_formula, data = x)
 #&gt; 
 #&gt; Coefficients:
-#&gt;         Hits          CRBI    CRBI.Years  CRBI.PutOuts    CRBI.CRuns  
-#&gt;   -3.162e+00     2.455e+00    -1.933e-01     5.157e-04     9.630e-04  
-#&gt;        Years    Hits.Walks         Walks        League  Hits.LeagueN  
-#&gt;    2.303e+01     1.162e-01    -1.218e+01     2.480e+02    -1.873e+00
+#&gt;       Hits   DivisionE   DivisionW       Walks   Hits:CRBI  Hits:Walks  
+#&gt;  -3.757247  608.915963  506.855308  -10.768781    0.006126    0.117664
 </code></pre>
 
 </body>

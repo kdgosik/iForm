@@ -7,7 +7,7 @@
 iForm(formula, data, heredity = "strong", higher_order = FALSE)
 }
 \arguments{
-\item{formula}{an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.}
+\item{formula}{an object of class formula, or one that can be coerced to that class,: a symbolic description of the model to be fitted. The details of model specification are given under 'Details'.}
 
 \item{data}{data.frame of your data with the response and all p predictors}
 
